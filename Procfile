@@ -1,1 +1,1 @@
-ss: bin/go-signaling-server
+web: bin/signaling-server-test-heroku

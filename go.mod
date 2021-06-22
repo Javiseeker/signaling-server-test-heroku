@@ -1,4 +1,4 @@
-module github.com/pion/example-webrtc-applications/v3
+module github.com/Javiseeker/signaling-server-test-heroku
 
 // +heroku goVersion go1.13
 go 1.13

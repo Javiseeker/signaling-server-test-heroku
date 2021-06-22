@@ -18,4 +18,4 @@ ENV HOME /app
 WORKDIR /app
 RUN useradd -m heroku
 USER heroku
-CMD /app/bin/go-signaling-server
+CMD /app/bin/signaling-server-test-heroku

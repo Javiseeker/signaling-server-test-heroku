@@ -5,4 +5,4 @@ build:
     - go
 
 run:
-  ss: go-signaling-server
+  web: signaling-server-test-heroku

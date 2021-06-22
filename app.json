@@ -1,12 +1,12 @@
 {
-  "name": "Start on Heroku: Go",
-  "description": "Go Getting Started Example App",
+  "name": "Signaling Server for WEBRTC",
+  "description": "Signaling server test",
   "keywords": [
-    "getting-started",
+    "signaling server test",
     "go",
     "sample",
     "example"
   ],
-  "website": "http://github.com/heroku/go-getting-started",
-  "repository": "http://github.com/heroku/go-getting-started"
+  "website": "https://github.com/Javiseeker/signaling-server-test-heroku",
+  "repository": "https://github.com/Javiseeker/signaling-server-test-heroku"
 }
