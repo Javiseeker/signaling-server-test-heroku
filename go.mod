@@ -1,5 +1,6 @@
 module github.com/pion/example-webrtc-applications/v3
 
+// +heroku goVersion go1.13
 go 1.13
 
 require (
