@@ -56,17 +56,19 @@ func main() {
 		log.Fatal("$PORT must be set")
 	}
 
+	// Parse the flags passed to program
+	flag.Parse()
+
+	// Init other state
+	log.SetFlags(0)
+
 	// Read index.html from disk into memory, serve whenever anyone requests /
 	indexHTML, err := ioutil.ReadFile("index.html")
 	if err != nil {
 		panic(err)
 	}
 	indexTemplate = template.Must(template.New("").Parse(string(indexHTML)))
-	// Parse the flags passed to program
-	flag.Parse()
 
-	// Init other state
-	log.SetFlags(0)
 	trackLocals = map[string]*webrtc.TrackLocalStaticRTP{}
 
 	// websocket handler
