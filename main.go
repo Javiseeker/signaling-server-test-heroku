@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"flag"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -18,6 +19,7 @@ import (
 )
 
 var (
+	addr     = flag.String("addr", ":"+os.Getenv("PORT"), "http service address")
 	upgrader = websocket.Upgrader{
 		CheckOrigin: func(r *http.Request) bool { return true },
 	}
@@ -52,10 +54,14 @@ func main() {
 
 	if port == "" {
 		log.Fatal("$PORT must be set")
-		//port = "8080"
 	}
 
-	var addr = flag.String("addr", ":"+port, "http service address")
+	// Read index.html from disk into memory, serve whenever anyone requests /
+	indexHTML, err := ioutil.ReadFile("index.html")
+	if err != nil {
+		panic(err)
+	}
+	indexTemplate = template.Must(template.New("").Parse(string(indexHTML)))
 	// Parse the flags passed to program
 	flag.Parse()
 
