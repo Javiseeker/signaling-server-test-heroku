@@ -280,20 +280,20 @@ func websocketHandler(w http.ResponseWriter, r *http.Request) {
 	defer c.Close() //nolint
 
 	// Create new PeerConnection
-	// stunNTurnServersList := []string{
-	// 	"stun:stun.ekiga.net",
-	// 	"stun:stun01.sipphone.com",
-	// 	"stun:stun.fwdnet.net",
-	// 	"stun:stun.ideasip.com",
-	// 	"stun:stun.iptel.org",
-	// 	"stun:stun.rixtelecom.se",
-	// }
+	stunNTurnServersList := []string{
+		"stun:stun.ekiga.net",
+		"stun:stun01.sipphone.com",
+		"stun:stun.fwdnet.net",
+		"stun:stun.ideasip.com",
+		"stun:stun.iptel.org",
+		"stun:stun.rixtelecom.se",
+	}
 	config := webrtc.Configuration{
 		ICEServers: []webrtc.ICEServer{
 			{
-				URLs:       []string{"numb.viagenie.ca"},
-				Username:   "jal@oiga.com",
-				Credential: "Javier.123",
+				URLs: stunNTurnServersList,
+				// Username:   "jal@oiga.com",
+				// Credential: "Javier.123",
 			},
 		},
 	}
