@@ -12,10 +12,9 @@ import (
 	"time"
 
 	"github.com/gorilla/websocket"
+	_ "github.com/heroku/x/hmetrics/onload"
 	"github.com/pion/rtcp"
 	"github.com/pion/webrtc/v3"
-
-	_ "github.com/heroku/x/hmetrics/onload"
 )
 
 // +os.Getenv("PORT")
@@ -281,7 +280,15 @@ func websocketHandler(w http.ResponseWriter, r *http.Request) {
 	defer c.Close() //nolint
 
 	// Create new PeerConnection
-	peerConnection, err := webrtc.NewPeerConnection(webrtc.Configuration{})
+
+	config := webrtc.Configuration{
+		ICEServers: []webrtc.ICEServer{
+			{
+				URLs: []string{"stun:stun.l.google.com:19302"},
+			},
+		},
+	}
+	peerConnection, err := webrtc.NewPeerConnection(config)
 	if err != nil {
 		log.Print(err)
 		return
