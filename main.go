@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"flag"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -76,14 +75,14 @@ func main() {
 	http.HandleFunc("/websocket", websocketHandler)
 
 	// index.html handler
-	http.HandleFunc("/client", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if err := indexTemplate.Execute(w, "wss://"+r.Host+"/websocket"); err != nil {
 			log.Fatal(err)
 		}
 	})
-	http.HandleFunc("/", func(rw http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(rw, "/")
-	})
+	// http.HandleFunc("/", func(rw http.ResponseWriter, r *http.Request) {
+	// 	fmt.Fprintf(rw, "/")
+	// })
 
 	// request a keyframe every 3 seconds
 	go func() {
