@@ -76,8 +76,8 @@ func main() {
 	http.HandleFunc("/websocket", websocketHandler)
 
 	// index.html handler
-	http.HandleFunc("/call", func(w http.ResponseWriter, r *http.Request) {
-		if err := indexTemplate.Execute(w, "ws://"+r.Host+"/websocket"); err != nil {
+	http.HandleFunc("/client", func(w http.ResponseWriter, r *http.Request) {
+		if err := indexTemplate.Execute(w, "wss://"+r.Host+"/websocket"); err != nil {
 			log.Fatal(err)
 		}
 	})
