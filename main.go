@@ -18,6 +18,7 @@ import (
 	_ "github.com/heroku/x/hmetrics/onload"
 )
 
+// +os.Getenv("PORT")
 var (
 	addr     = flag.String("addr", ":"+os.Getenv("PORT"), "http service address")
 	upgrader = websocket.Upgrader{
@@ -76,7 +77,7 @@ func main() {
 
 	// index.html handler
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		if err := indexTemplate.Execute(w, "wss://"+r.Host+"/websocket"); err != nil {
+		if err := indexTemplate.Execute(w, "ws://"+r.Host+"/websocket"); err != nil {
 			log.Fatal(err)
 		}
 	})
