@@ -82,7 +82,7 @@ func main() {
 		}
 	})
 	http.HandleFunc("/", func(rw http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(rw, "Hello World")
+		fmt.Fprintf(rw, "/")
 	})
 
 	// request a keyframe every 3 seconds
