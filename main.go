@@ -356,7 +356,7 @@ func websocketHandler(w http.ResponseWriter, r *http.Request) {
 		trackLocal := addTrack(t)
 		defer removeTrack(trackLocal)
 
-		buf := make([]byte, 1500)
+		buf := make([]byte, 3000)
 		for {
 			i, _, err := t.Read(buf)
 			if err != nil {
