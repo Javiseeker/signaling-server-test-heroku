@@ -287,13 +287,13 @@ func websocketHandler(w http.ResponseWriter, r *http.Request) {
 		"stun:stun.rixtelecom.se",
 	}
 	config := webrtc.Configuration{
-		ICEServers: []webrtc.ICEServer{
-			{
-				URLs: stunNTurnServersList,
-				// Username:   "jal@oiga.com",
-				// Credential: "Javier.123",
-			},
-		},
+		// ICEServers: []webrtc.ICEServer{
+		// 	{
+		// 		URLs: stunNTurnServersList,
+		// 		// Username:   "jal@oiga.com",
+		// 		// Credential: "Javier.123",
+		// 	},
+		// },
 	}
 	peerConnection, err := webrtc.NewPeerConnection(config)
 	if err != nil {
