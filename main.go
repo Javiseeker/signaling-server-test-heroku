@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"sync"
 	"text/template"
 	"time"
@@ -16,7 +17,7 @@ import (
 )
 
 var (
-	addr     = flag.String("addr", ":8080", "http service address")
+	addr     = flag.String("addr", ":"+os.Getenv("PORT"), "http service address")
 	upgrader = websocket.Upgrader{
 		CheckOrigin: func(r *http.Request) bool { return true },
 	}
