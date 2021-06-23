@@ -75,14 +75,12 @@ func main() {
 	http.HandleFunc("/websocket", websocketHandler)
 
 	// index.html handler
+
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if err := indexTemplate.Execute(w, "wss://"+r.Host+"/websocket"); err != nil {
 			log.Fatal(err)
 		}
 	})
-	// http.HandleFunc("/", func(rw http.ResponseWriter, r *http.Request) {
-	// 	fmt.Fprintf(rw, "/")
-	// })
 
 	// request a keyframe every 3 seconds
 	go func() {
@@ -96,17 +94,6 @@ func main() {
 	if httpErr != nil {
 		log.Fatal("The process exited with http error: ", httpErr.Error())
 	}
-	// if _, err := os.Stat("./localhost+2.pem"); err == nil {
-	// 	fmt.Println("file ", "localhost+2.pem found switching to https")
-	// 	if httpErr = http.ListenAndServeTLS(*addr, "localhost+2.pem", "localhost+2-key.pem", nil); httpErr != nil {
-	// 		log.Fatal("The process exited with https error: ", httpErr.Error())
-	// 	}
-	// } else {
-	// 	httpErr = http.ListenAndServe(*addr, nil)
-	// 	if httpErr != nil {
-	// 		log.Fatal("The process exited with http error: ", httpErr.Error())
-	// 	}
-	// }
 }
 
 func (t *threadSafeWriter) WriteJSON(v interface{}) error {
@@ -134,7 +121,7 @@ func addTrack(t *webrtc.TrackRemote) *webrtc.TrackLocalStaticRTP {
 	return trackLocal
 }
 
-// Remove from list of tracks and fire renegotation for all PeerConnections
+// Remove from list of tracks and fire renegotiation for all PeerConnections
 func removeTrack(t *webrtc.TrackLocalStaticRTP) {
 	listLock.Lock()
 	defer func() {
@@ -356,7 +343,7 @@ func websocketHandler(w http.ResponseWriter, r *http.Request) {
 		trackLocal := addTrack(t)
 		defer removeTrack(trackLocal)
 
-		buf := make([]byte, 3000)
+		buf := make([]byte, 1500)
 		for {
 			i, _, err := t.Read(buf)
 			if err != nil {
