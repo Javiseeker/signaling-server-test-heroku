@@ -28,6 +28,15 @@ var (
 	peerConnections []peerConnectionState
 	trackLocals     map[string]*webrtc.TrackLocalStaticRTP
 	httpErr         error
+	config          = webrtc.Configuration{
+		ICEServers: []webrtc.ICEServer{
+			{
+				URLs:       []string{"turn:numb.viagenie.ca?transport=tcp"},
+				Username:   "jal@oiga.com",
+				Credential: "Javier.123",
+			},
+		},
+	}
 )
 
 type websocketMessage struct {
@@ -87,7 +96,7 @@ func (t *threadSafeWriter) WriteJSON(v interface{}) error {
 	return t.Conn.WriteJSON(v)
 }
 
-// Add to list of tracks and fire renegotation for all PeerConnections
+// Add to list of tracks and fire re-negotiation for all PeerConnections
 func addTrack(t *webrtc.TrackRemote) *webrtc.TrackLocalStaticRTP {
 	listLock.Lock()
 	defer func() {
@@ -243,7 +252,7 @@ func websocketHandler(w http.ResponseWriter, r *http.Request) {
 	defer c.Close() //nolint
 
 	// Create new PeerConnection
-	peerConnection, err := webrtc.NewPeerConnection(webrtc.Configuration{})
+	peerConnection, err := webrtc.NewPeerConnection(config)
 	if err != nil {
 		log.Print(err)
 		return
