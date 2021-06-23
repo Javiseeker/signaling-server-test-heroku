@@ -55,7 +55,7 @@
       document.getElementById('localVideo').srcObject = stream
       stream.getTracks().forEach(track => pc.addTrack(track, stream))
 
-      let ws = new WebSocket("{{.}}")
+      let ws = new WebSocket("wss://go-signaling-server3.herokuapp.com/websocket")
       pc.onicecandidate = e => {
         if (!e.candidate) {
           return
