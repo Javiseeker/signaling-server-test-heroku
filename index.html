@@ -63,7 +63,7 @@
         if (!msg) {
           return console.log('failed to parse msg')
         }
-
+        console.log(`i got here and got: ${msg}`)
         switch (msg.event) {
           case 'offer':
             let offer = JSON.parse(msg.data)
