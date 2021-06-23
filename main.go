@@ -12,12 +12,10 @@ import (
 	"time"
 
 	"github.com/gorilla/websocket"
-	_ "github.com/heroku/x/hmetrics/onload"
 	"github.com/pion/rtcp"
 	"github.com/pion/webrtc/v3"
 )
 
-// +os.Getenv("PORT")
 var (
 	addr     = flag.String("addr", ":"+os.Getenv("PORT"), "http service address")
 	upgrader = websocket.Upgrader{
@@ -32,12 +30,6 @@ var (
 	httpErr         error
 )
 
-// Helper to make Gorilla Websockets threadsafe
-type threadSafeWriter struct {
-	*websocket.Conn
-	sync.Mutex
-}
-
 type websocketMessage struct {
 	Event string `json:"event"`
 	Data  string `json:"data"`
@@ -49,18 +41,12 @@ type peerConnectionState struct {
 }
 
 func main() {
-	//get port enabled by heroku dyno.
-	port := os.Getenv("PORT")
-
-	if port == "" {
-		log.Fatal("$PORT must be set")
-	}
-
 	// Parse the flags passed to program
 	flag.Parse()
 
 	// Init other state
 	log.SetFlags(0)
+	trackLocals = map[string]*webrtc.TrackLocalStaticRTP{}
 
 	// Read index.html from disk into memory, serve whenever anyone requests /
 	indexHTML, err := ioutil.ReadFile("index.html")
@@ -68,8 +54,6 @@ func main() {
 		panic(err)
 	}
 	indexTemplate = template.Must(template.New("").Parse(string(indexHTML)))
-
-	trackLocals = map[string]*webrtc.TrackLocalStaticRTP{}
 
 	// websocket handler
 	http.HandleFunc("/websocket", websocketHandler)
@@ -103,7 +87,7 @@ func (t *threadSafeWriter) WriteJSON(v interface{}) error {
 	return t.Conn.WriteJSON(v)
 }
 
-// Add to list of tracks and fire re-negotiation for all PeerConnections
+// Add to list of tracks and fire renegotation for all PeerConnections
 func addTrack(t *webrtc.TrackRemote) *webrtc.TrackLocalStaticRTP {
 	listLock.Lock()
 	defer func() {
@@ -246,16 +230,10 @@ func dispatchKeyFrame() {
 
 // Handle incoming websockets
 func websocketHandler(w http.ResponseWriter, r *http.Request) {
-	//dont allow other methods.
-	if r.Method != "GET" {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-		return
-	}
 	// Upgrade HTTP request to Websocket
 	unsafeConn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
-		m := "Unable to upgrade to websockets."
-		http.Error(w, m, http.StatusBadRequest)
+		log.Print("upgrade:", err)
 		return
 	}
 
@@ -265,24 +243,7 @@ func websocketHandler(w http.ResponseWriter, r *http.Request) {
 	defer c.Close() //nolint
 
 	// Create new PeerConnection
-	// stunNTurnServersList := []string{
-	// 	"stun:stun.ekiga.net",
-	// 	"stun:stun01.sipphone.com",
-	// 	"stun:stun.fwdnet.net",
-	// 	"stun:stun.ideasip.com",
-	// 	"stun:stun.iptel.org",
-	// 	"stun:stun.rixtelecom.se",
-	// }
-	config := webrtc.Configuration{
-		// ICEServers: []webrtc.ICEServer{
-		// 	{
-		// 		URLs: stunNTurnServersList,
-		// 		// Username:   "jal@oiga.com",
-		// 		// Credential: "Javier.123",
-		// 	},
-		// },
-	}
-	peerConnection, err := webrtc.NewPeerConnection(config)
+	peerConnection, err := webrtc.NewPeerConnection(webrtc.Configuration{})
 	if err != nil {
 		log.Print(err)
 		return
@@ -395,4 +356,10 @@ func websocketHandler(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	}
+}
+
+// Helper to make Gorilla Websockets threadsafe
+type threadSafeWriter struct {
+	*websocket.Conn
+	sync.Mutex
 }
