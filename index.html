@@ -63,14 +63,15 @@
         if (!msg) {
           return console.log('failed to parse msg')
         }
-        console.log('i got here and got this msg:')
-        console.table(msg)
+        // console.log('i got here and got this msg:')
+        // console.table(msg)
         switch (msg.event) {
           case 'offer':
             let offer = JSON.parse(msg.data)
             if (!offer) {
               return console.log('failed to parse answer')
             }
+            console.table(offer);
             pc.setRemoteDescription(offer)
             pc.createAnswer().then(answer => {
               pc.setLocalDescription(answer)
@@ -83,7 +84,7 @@
             if (!candidate) {
               return console.log('failed to parse candidate')
             }
-
+            console.table(candidate)
             pc.addIceCandidate(candidate)
         }
       }
