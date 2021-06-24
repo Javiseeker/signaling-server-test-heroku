@@ -28,15 +28,16 @@ var (
 	peerConnections []peerConnectionState
 	trackLocals     map[string]*webrtc.TrackLocalStaticRTP
 	httpErr         error
-	config          = webrtc.Configuration{
-		ICEServers: []webrtc.ICEServer{
-			{
-				URLs:       []string{"turn:numb.viagenie.ca?transport=tcp"},
-				Username:   "jal@oiga.com",
-				Credential: "Javier.123",
-			},
-		},
-	}
+
+	// config = webrtc.Configuration{
+	// 	ICEServers: []webrtc.ICEServer{
+	// 		{
+	// 			URLs:       []string{"turn:numb.viagenie.ca?transport=tcp"},
+	// 			Username:   "jal@oiga.com",
+	// 			Credential: "Javier.123",
+	// 		},
+	// 	},
+	// }
 )
 
 type websocketMessage struct {
@@ -50,6 +51,15 @@ type peerConnectionState struct {
 }
 
 func main() {
+	// accountSid := os.Getenv("TWILIOACCSID")
+	// authToken := os.Getenv("TWILIOACCAUTHTOKEN")
+	// client := twilio.NewRestClient(accountSid, authToken)
+	// token, err := client.ApiV2010.CreateToken(accountSid)
+
+	// if err != nil {
+	// 	panic(err)
+	// }
+
 	// Parse the flags passed to program
 	flag.Parse()
 
@@ -252,7 +262,7 @@ func websocketHandler(w http.ResponseWriter, r *http.Request) {
 	defer c.Close() //nolint
 
 	// Create new PeerConnection
-	peerConnection, err := webrtc.NewPeerConnection(config)
+	peerConnection, err := webrtc.NewPeerConnection(webrtc.Configuration{})
 	if err != nil {
 		log.Print(err)
 		return
