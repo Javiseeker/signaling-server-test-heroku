@@ -29,15 +29,15 @@ var (
 	trackLocals     map[string]*webrtc.TrackLocalStaticRTP
 	httpErr         error
 
-	// config = webrtc.Configuration{
-	// 	ICEServers: []webrtc.ICEServer{
-	// 		{
-	// 			URLs:       []string{"turn:numb.viagenie.ca?transport=tcp"},
-	// 			Username:   "jal@oiga.com",
-	// 			Credential: "Javier.123",
-	// 		},
-	// 	},
-	// }
+	config = webrtc.Configuration{
+		ICEServers: []webrtc.ICEServer{
+			{
+				URLs:       []string{"turn:global.turn.twilio.com:3478?transport=udp"},
+				Username:   "8341169e79341027ab1bea2eec3de6714ba7feaf74d85038c169569083b711b2",
+				Credential: "Pr7KRtO8ECXsj5SmZVniOliCeY1sAOoDVoz0XXBRiQg=",
+			},
+		},
+	}
 )
 
 type websocketMessage struct {
@@ -51,11 +51,20 @@ type peerConnectionState struct {
 }
 
 func main() {
-	// accountSid := os.Getenv("TWILIOACCSID")
-	// authToken := os.Getenv("TWILIOACCAUTHTOKEN")
+	// accountSid := "ACb7e37be8ee4fe08e8c9d0caff1a22709" //os.Getenv("TWILIOACCSID")
+	// authToken := "354b0688d90890a185e488c4c8e26789"    //os.Getenv("TWILIOACCAUTHTOKEN")
 	// client := twilio.NewRestClient(accountSid, authToken)
-	// token, err := client.ApiV2010.CreateToken(accountSid)
-
+	// params := &openapi.CreateTokenParams{}
+	// params.SetTtl(900)
+	// token, err := client.ApiV2010.CreateToken(params)
+	// fmt.Print("\n------------- \n")
+	// fmt.Print(*token.IceServers)
+	// fmt.Print("\n------------- \n")
+	// //sUsr, _ := b64.StdEncoding.DecodeString(*token.Username)
+	// fmt.Print(string(*token.Username))
+	// fmt.Print("\n------------- \n")
+	// //sPwd, _ := b64.StdEncoding.DecodeString(*token.Password)
+	// fmt.Print(string(*token.Password))
 	// if err != nil {
 	// 	panic(err)
 	// }

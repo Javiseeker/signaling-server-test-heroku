@@ -1,10 +1,8 @@
 # github.com/google/uuid v1.2.0
 github.com/google/uuid
 # github.com/gorilla/websocket v1.4.2
+## explicit
 github.com/gorilla/websocket
-# github.com/heroku/x v0.0.31
-github.com/heroku/x/hmetrics
-github.com/heroku/x/hmetrics/onload
 # github.com/pion/datachannel v1.4.21
 github.com/pion/datachannel
 # github.com/pion/dtls/v2 v2.0.9
@@ -39,6 +37,7 @@ github.com/pion/mdns
 # github.com/pion/randutil v0.1.0
 github.com/pion/randutil
 # github.com/pion/rtcp v1.2.6
+## explicit
 github.com/pion/rtcp
 # github.com/pion/rtp v1.6.5
 github.com/pion/rtp
@@ -68,6 +67,7 @@ github.com/pion/turn/v2/internal/server
 # github.com/pion/udp v0.1.1
 github.com/pion/udp
 # github.com/pion/webrtc/v3 v3.0.29
+## explicit
 github.com/pion/webrtc/v3
 github.com/pion/webrtc/v3/internal/mux
 github.com/pion/webrtc/v3/internal/util
@@ -75,11 +75,14 @@ github.com/pion/webrtc/v3/pkg/media
 github.com/pion/webrtc/v3/pkg/rtcerr
 # github.com/pkg/errors v0.9.1
 github.com/pkg/errors
-# golang.org/x/crypto v0.0.0-20210322153248-0c34fe9e7dc2
+# golang.org/x/crypto v0.0.0-20210616213533-5ff15b29337e
+## explicit
 golang.org/x/crypto/cryptobyte
 golang.org/x/crypto/cryptobyte/asn1
 golang.org/x/crypto/curve25519
-# golang.org/x/net v0.0.0-20210420210106-798c2154c571
+golang.org/x/crypto/curve25519/internal/field
+# golang.org/x/net v0.0.0-20210614182718-04defd469f4e
+## explicit
 golang.org/x/net/bpf
 golang.org/x/net/dns/dnsmessage
 golang.org/x/net/internal/iana
@@ -87,7 +90,8 @@ golang.org/x/net/internal/socket
 golang.org/x/net/internal/socks
 golang.org/x/net/ipv4
 golang.org/x/net/proxy
-# golang.org/x/sys v0.0.0-20210420072515-93ed5bcd2bfe
+# golang.org/x/sys v0.0.0-20210616094352-59db8d763f22
+## explicit
 golang.org/x/sys/internal/unsafeheader
 golang.org/x/sys/unix
 golang.org/x/sys/windows
