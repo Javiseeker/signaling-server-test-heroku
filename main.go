@@ -32,9 +32,9 @@ var (
 	config = webrtc.Configuration{
 		ICEServers: []webrtc.ICEServer{
 			{
-				URLs:       []string{"turn:global.turn.twilio.com:3478?transport=udp"},
-				Username:   "8341169e79341027ab1bea2eec3de6714ba7feaf74d85038c169569083b711b2",
-				Credential: "Pr7KRtO8ECXsj5SmZVniOliCeY1sAOoDVoz0XXBRiQg=",
+				URLs:       []string{"turn:global.turn.twilio.com:443?transport=tcp"},
+				Username:   "f750eb8b9558a3eab23872d44f9692172f9a57510e523d9489420d444b2cb97d",
+				Credential: "WI7WGpqAxJlf6t/xTWyX8nP77uV5vbiH0VyUJ04kfPY=",
 			},
 		},
 	}
@@ -51,23 +51,6 @@ type peerConnectionState struct {
 }
 
 func main() {
-	// accountSid := "ACb7e37be8ee4fe08e8c9d0caff1a22709" //os.Getenv("TWILIOACCSID")
-	// authToken := "354b0688d90890a185e488c4c8e26789"    //os.Getenv("TWILIOACCAUTHTOKEN")
-	// client := twilio.NewRestClient(accountSid, authToken)
-	// params := &openapi.CreateTokenParams{}
-	// params.SetTtl(900)
-	// token, err := client.ApiV2010.CreateToken(params)
-	// fmt.Print("\n------------- \n")
-	// fmt.Print(*token.IceServers)
-	// fmt.Print("\n------------- \n")
-	// //sUsr, _ := b64.StdEncoding.DecodeString(*token.Username)
-	// fmt.Print(string(*token.Username))
-	// fmt.Print("\n------------- \n")
-	// //sPwd, _ := b64.StdEncoding.DecodeString(*token.Password)
-	// fmt.Print(string(*token.Password))
-	// if err != nil {
-	// 	panic(err)
-	// }
 
 	// Parse the flags passed to program
 	flag.Parse()
