@@ -247,9 +247,9 @@ func websocketHandler(w http.ResponseWriter, r *http.Request) {
 	config := webrtc.Configuration{
 		ICEServers: []webrtc.ICEServer{
 			{
-				URLs:       []string{"turn:turn.barcodecol.dev:5349"},
-				Username:   "nicoloaiza",
-				Credential: "Qwe123Qwe#",
+				URLs:       []string{"turn:global.turn.twilio.com:3478?transport=udp"},
+				Username:   "95bc74d97255717f4b736dfa6cbc4b1d19a7048c40d9062330260b8bcd0419dc",
+				Credential: "9ZXSPQ2jqbLldLL14yn41SpQTpTL8NBhyW8DW1ZkghU=",
 			},
 		},
 	}
