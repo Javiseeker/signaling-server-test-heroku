@@ -247,7 +247,7 @@ func websocketHandler(w http.ResponseWriter, r *http.Request) {
 	config := webrtc.Configuration{
 		ICEServers: []webrtc.ICEServer{
 			{
-				URLs:       []string{"turn:turn.barcodecol.dev:3478?transport=tcp"},
+				URLs:       []string{"stun:stun.barcodecol.dev:3478?transport=tcp"},
 				Username:   "nicoloaiza",
 				Credential: "Qwe123Qwe#",
 			},
